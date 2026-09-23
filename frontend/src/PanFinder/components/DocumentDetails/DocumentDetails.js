@@ -5,6 +5,7 @@ import { useDocumentData } from '../../contexts/DocumentDataContext'
 import { useFeedback } from '../../contexts/FeedbackContext'
 import { usePanFinderApi } from '../../hooks/usePanFinderApi'
 import ExplanationDisplay from '../ExplanationDisplay'
+import ImportToPanSpaceButton from '../ImportToPanSpaceButton'
 import FeedbackClassifier from './FeedbackClassifier'
 import RawDataViewer from './RawDataViewer'
 
@@ -342,85 +343,99 @@ function DocumentDetails({ details, isLoading, doi, statisticId }) {
               </Box>
             )}
 
-            {!details.raw && (
-              <Button
-                variant="action"
-                aria-pressed={isMetadataVisible}
-                sx={{
-                  p: '5px 10px',
-                  ml: 0,
-                  fontSize: '12px',
-                  display: 'inline-flex',
-                  width: 'fit-content',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  justifySelf: 'center',
-                  gap: 1,
-                  borderRadius: '999px',
-                  border: '1px solid',
-                  borderColor: isMetadataVisible
-                    ? 'rgba(99, 179, 237, 0.55)'
-                    : 'rgba(160, 174, 192, 0.22)',
-                  backgroundColor: isMetadataVisible
-                    ? 'rgba(99, 179, 237, 0.12)'
-                    : 'rgba(255, 255, 255, 0.04)',
-                  color: isMetadataVisible ? '#e6f4ff' : '#cbd5e0',
-                  transition:
-                    'background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease',
-                  ':hover': rawDataLoading
-                    ? undefined
-                    : {
-                        backgroundColor: isMetadataVisible
-                          ? 'rgba(99, 179, 237, 0.18)'
-                          : 'rgba(255, 255, 255, 0.08)',
-                        borderColor: isMetadataVisible
-                          ? 'rgba(99, 179, 237, 0.75)'
-                          : 'rgba(226, 232, 240, 0.35)',
-                        transform: 'translateY(-1px)',
-                      },
-                  ':active': {
-                    transform: 'translateY(0)',
-                  },
-                  ':focus-visible': {
-                    outline: '2px solid #63b3ed',
-                    outlineOffset: '2px',
-                  },
-                  '&:disabled': {
-                    opacity: 0.7,
-                    cursor: 'not-allowed',
-                  },
-                }}
-                title={isMetadataVisible ? 'Hide Metadata' : 'View Metadata'}
-                onClick={handleMetadataToggle}
-                disabled={rawDataLoading}
-              >
-                {rawDataLoading ? (
-                  <>
-                    <Box
-                      sx={{
-                        width: '14px',
-                        height: '14px',
-                        borderRadius: '50%',
-                        border: '2px solid transparent',
-                        borderTop: '2px solid currentColor',
-                        borderRight: '2px solid currentColor',
-                        animation: 'spin 1s linear infinite',
-                      }}
-                    />
-                    Loading...
-                  </>
-                ) : (
-                  <>
-                    {isMetadataVisible ? (
-                      <FiEyeOff size={14} />
-                    ) : (
-                      <FiEye size={14} />
-                    )}
-                    {isMetadataVisible ? 'Hide Metadata' : 'View Metadata'}
-                  </>
-                )}
-              </Button>
-            )}
+            <Flex
+              sx={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: 2,
+              }}
+            >
+              {!details.raw && (
+                <Button
+                  variant="action"
+                  aria-pressed={isMetadataVisible}
+                  sx={{
+                    p: '5px 10px',
+                    ml: 0,
+                    fontSize: '12px',
+                    display: 'inline-flex',
+                    width: 'fit-content',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    justifySelf: 'center',
+                    gap: 1,
+                    borderRadius: '999px',
+                    border: '1px solid',
+                    borderColor: isMetadataVisible
+                      ? 'rgba(99, 179, 237, 0.55)'
+                      : 'rgba(160, 174, 192, 0.22)',
+                    backgroundColor: isMetadataVisible
+                      ? 'rgba(99, 179, 237, 0.12)'
+                      : 'rgba(255, 255, 255, 0.04)',
+                    color: isMetadataVisible ? '#e6f4ff' : '#cbd5e0',
+                    transition:
+                      'background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease',
+                    ':hover': rawDataLoading
+                      ? undefined
+                      : {
+                          backgroundColor: isMetadataVisible
+                            ? 'rgba(99, 179, 237, 0.18)'
+                            : 'rgba(255, 255, 255, 0.08)',
+                          borderColor: isMetadataVisible
+                            ? 'rgba(99, 179, 237, 0.75)'
+                            : 'rgba(226, 232, 240, 0.35)',
+                          transform: 'translateY(-1px)',
+                        },
+                    ':active': {
+                      transform: 'translateY(0)',
+                    },
+                    ':focus-visible': {
+                      outline: '2px solid #63b3ed',
+                      outlineOffset: '2px',
+                    },
+                    '&:disabled': {
+                      opacity: 0.7,
+                      cursor: 'not-allowed',
+                    },
+                  }}
+                  title={isMetadataVisible ? 'Hide Metadata' : 'View Metadata'}
+                  onClick={handleMetadataToggle}
+                  disabled={rawDataLoading}
+                >
+                  {rawDataLoading ? (
+                    <>
+                      <Box
+                        sx={{
+                          width: '14px',
+                          height: '14px',
+                          borderRadius: '50%',
+                          border: '2px solid transparent',
+                          borderTop: '2px solid currentColor',
+                          borderRight: '2px solid currentColor',
+                          animation: 'spin 1s linear infinite',
+                        }}
+                      />
+                      Loading...
+                    </>
+                  ) : (
+                    <>
+                      {isMetadataVisible ? (
+                        <FiEyeOff size={14} />
+                      ) : (
+                        <FiEye size={14} />
+                      )}
+                      {isMetadataVisible ? 'Hide Metadata' : 'View Metadata'}
+                    </>
+                  )}
+                </Button>
+              )}
+              <ImportToPanSpaceButton
+                doi={details.doi}
+                title={details.title}
+                variant="pill"
+              />
+            </Flex>
             {isMetadataVisible && rawDataError && (
               <DocumentField label="Metadata">
                 <Box sx={{ bg: '#742a2a', p: 3, borderRadius: '4px' }}>

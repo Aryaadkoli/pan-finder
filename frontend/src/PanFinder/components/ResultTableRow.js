@@ -1,8 +1,10 @@
+
 import React from 'react'
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
 
 import { Text } from '../../Primitives'
 import DocumentDetails from './DocumentDetails/DocumentDetails'
+import ImportToPanSpaceButton from './ImportToPanSpaceButton'
 
 export function getScoreBackgroundColor({ overall_score: overallScore }) {
   const red = Math.round(120 * (1 - overallScore))
@@ -96,37 +98,41 @@ function ResultTableRow({
             fontSize: '12px',
             fontFamily: 'monospace',
             maxWidth: '120px',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
           }}
           title={result.doi}
         >
-          <a
-            href={`https://doi.org/${result.doi}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()} // Prevent row click when clicking link
-            style={{
-              color: '#63b3ed',
-              textDecoration: 'none',
-              fontWeight: '500',
-            }}
-            onMouseOver={(e) => {
-              e.target.style.textDecoration = 'underline'
-            }}
-            onMouseOut={(e) => {
-              e.target.style.textDecoration = 'none'
-            }}
-            onFocus={(e) => {
-              e.target.style.textDecoration = 'underline'
-            }}
-            onBlur={(e) => {
-              e.target.style.textDecoration = 'none'
-            }}
-          >
-            {result.doi}
-          </a>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <a
+              href={`https://doi.org/${result.doi}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()} // Prevent row click when clicking link
+              style={{
+                color: '#63b3ed',
+                textDecoration: 'none',
+                fontWeight: '500',
+                minWidth: 0,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+              onMouseOver={(e) => {
+                e.target.style.textDecoration = 'underline'
+              }}
+              onMouseOut={(e) => {
+                e.target.style.textDecoration = 'none'
+              }}
+              onFocus={(e) => {
+                e.target.style.textDecoration = 'underline'
+              }}
+              onBlur={(e) => {
+                e.target.style.textDecoration = 'none'
+              }}
+            >
+              {result.doi}
+            </a>
+            <ImportToPanSpaceButton doi={result.doi} title={result.title} />
+          </span>
         </td>
         <td style={{ padding: '12px 8px', maxWidth: '300px' }}>
           <Text
